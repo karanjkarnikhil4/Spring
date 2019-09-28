@@ -1,26 +1,26 @@
 package com.luv2code.springdemo;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 //@Component("thatSillyCoach")
 
 @Component //default bean id is tennisCoach
-@Scope("prototype")
 public class TennisCoach implements Coach {
 	
-	// this is field injecton 
-	// injection is happening on the private field using reflection
 	@Autowired
-	//@Qualifier("happyFortuneService")
-	//@Qualifier("randomFortuneService")
-	@Qualifier("nikhilRandomFortuneService")
+	@Qualifier("randomFortuneService")
 	private FortuneService fortuneService;
 	
-	private String playerName;
+	public  TennisCoach()
+	{
+	  System.out.println(">> inside default constructor");
+	}
+	
 	public FortuneService getFortuneService() {
 		return fortuneService;
 	}
@@ -28,100 +28,26 @@ public class TennisCoach implements Coach {
 	public void setFortuneService(FortuneService fortuneService) {
 		this.fortuneService = fortuneService;
 	}
-
 	
-	public String getPlayerName() {
-		return playerName;
-	}
-
-	@Value("${foo.name}")
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
-
-	
-	public String getPlayerSurname() {
-		return playerSurname;
-	}
-
-	@Value("${foo.surname}")
-	public void setPlayerSurname(String playerSurname) {
-		this.playerSurname = playerSurname;
-	}
-
-	public String getPlayerPhone() {
-		return playerPhone;
-	}
-
-	@Value("${foo.mobilenumber}")
-	public void setPlayerPhone(String playerPhone) {
-		this.playerPhone = playerPhone;
-	}
-
-	public String getPlayerEmail() {
-		return playerEmail;
-	}
-
-	@Value("${foo.email}")
-	public void setPlayerEmail(String playerEmail) {
-		this.playerEmail = playerEmail;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	@Value("${foo.age}")
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	private String playerSurname;
-	private String playerPhone;
-	private String playerEmail;
-	private String age;
-	
-	
-	//Constructor injection
-//	@Autowired
-//	public TennisCoach(FortuneService fortuneService)
-//	{
-//		this.fortuneService = fortuneService;
-//	}
-	
-	public  TennisCoach()
+	@PostConstruct
+	public void domyStartStuff()
 	{
-	  System.out.println(">> inside default constructor");
+		System.out.println("inside do my start up stuff");
 	}
 	
-	//Setter injection
-//	@Autowired
-//	public void setFortuneService(FortuneService fortuneService)
-//	{
-//		this.fortuneService = fortuneService;
-//		System.out.println(">>inside the setFortuneService method");
-//	}
+	@PreDestroy
+	public void doMyCleanUpStuff()
+	{
+		System.out.println("inside clean up stuff");
+	}
 	
-	
-	// this is method injection
-//	@Autowired
-//	public void doSomeCrazyStuff(FortuneService fortuneService)
-//	{
-//		System.out.println(">>inside the doSomeCrazyStuff method");
-////		}
-//		this.fortuneService = fortuneService;
-//	}
-
 	@Override
 	public String getDailyWorkout() {
-		return "Hi "+getPlayerName()+" Practice your backhand volley";
+		return " Practice your backhand volley";
 	}
 
 	@Override
 	public String getDailyFortune() {
-		return getPlayerSurname() +" "+"With age "+getAge()+" "+this.fortuneService.getFortune();
+		return this.fortuneService.getFortune();
 	}
-	
-	
-
 }
