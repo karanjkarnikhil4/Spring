@@ -7,6 +7,14 @@ public class Student {
 	private String firstName;
 	private String lastName;
 	private String country;
+	private String favouriteLanguage;
+	
+	public String getFavouriteLanguage() {
+		return favouriteLanguage;
+	}
+	public void setFavouriteLanguage(String favouriteLanguage) {
+		this.favouriteLanguage = favouriteLanguage;
+	}
 	private  LinkedHashMap<String, String> countryOptions; 
 	
 	public LinkedHashMap<String, String> getCountryOptions() {
