@@ -40,12 +40,15 @@ public class CustomerController {
 	public String processForm(@Valid @ModelAttribute("customer")Customer customer,BindingResult theBindingResult)
 	{
 		System.out.println("Last name: |" + customer.getLastName());
+		System.out.println("Binding result: "+ theBindingResult);
+		
+		System.out.println("\n\n\n ");
 		
 		if(theBindingResult.hasErrors())
 		{
 			return "customer-form";
 		}
-		else
+		else 
 		{
 			return "customer-confirmation";
 		}
