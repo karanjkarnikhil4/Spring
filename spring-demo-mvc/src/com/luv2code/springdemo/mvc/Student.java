@@ -8,7 +8,14 @@ public class Student {
 	private String lastName;
 	private String country;
 	private String favouriteLanguage;
+	private String[] operatingSystems;
 	
+	public String[] getOperatingSystems() {
+		return operatingSystems;
+	}
+	public void setOperatingSystems(String[] operatingSystems) {
+		this.operatingSystems = operatingSystems;
+	}
 	public String getFavouriteLanguage() {
 		return favouriteLanguage;
 	}
