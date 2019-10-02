@@ -42,10 +42,13 @@ public class EagerLazyDemo {
 			
 			//get the courses for the instructor
 			
-			System.out.println("Courses: "+tempInstructor.getCourses());
+		
 			
 			//commit  the transaction
 			session.getTransaction().commit();
+			
+			session.close();
+			System.out.println("Courses: "+tempInstructor.getCourses());
 			
 			
 			System.out.println("Luv 2 Code Done!");
