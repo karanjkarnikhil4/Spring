@@ -37,7 +37,7 @@ public class Instructor {
 	@Column(name = "first_name")
 	private String firstName;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "instructor",cascade ={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@OneToMany mappedBy = "instructor",cascade ={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	private List<Course> courses;
 	
 	public List<Course> getCourses() {

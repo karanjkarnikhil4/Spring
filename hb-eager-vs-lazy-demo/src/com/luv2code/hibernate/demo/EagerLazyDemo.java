@@ -48,7 +48,7 @@ public class EagerLazyDemo {
 			session.getTransaction().commit();
 			
 			
-			System.out.println("Done!");
+			System.out.println("Luv 2 Code Done!");
 		}
 		
 		finally {
