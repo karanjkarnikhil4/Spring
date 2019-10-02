@@ -11,7 +11,7 @@ import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class GetInstructorDetailDemo {
+public class DeleteInstructorDetailDemo {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -32,19 +32,23 @@ public class GetInstructorDetailDemo {
 			//start the transaction 
 			session.beginTransaction();
 			
-			int theId =9999;
+			int theId =4;
 			
 			InstructorDetail instructorDetail = session.get(InstructorDetail.class,theId);
 			
-			if(instructorDetail != null)
-			{
+		
 				System.out.println("Found InstructorDetail: " +instructorDetail.toString());
 				
 				
 				//print out the associated Instructor as well
 				System.out.println("Found Instructor: " +instructorDetail.getInstructor().toString());
 				
-			}
+				//break the link between Instructor and Instructor Detail
+				instructorDetail.getInstructor().setDetail(null);
+				
+				System.out.println("Deleting instructorDetail "+ instructorDetail.toString());
+			
+				session.delete(instructorDetail);
 		
 			
 			//commit  the transaction
