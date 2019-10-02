@@ -1,5 +1,7 @@
 package com.luv2code.hibernate.demo;
 
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,9 +23,13 @@ public class CreateStudentWithDateDemo {
 		
 		try
 		{
+	
+			
 			//create a student object
-			System.out.println("creating a new student object");
-			Student tempStudent = new Student("paul","wall","paul@luv2code.com");
+			System.out.println("creating a new student object with date of birth");
+			String dateStr = "31/12/1998";
+			Date date = DateUtils.parseDate(dateStr);
+			Student tempStudent = new Student("paul","wall","paul@luv2code.com",date);
 			
 			//start a transaction
 			session.beginTransaction();
@@ -47,3 +53,5 @@ public class CreateStudentWithDateDemo {
 	}
 
 }
+
+
