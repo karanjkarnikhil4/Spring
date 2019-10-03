@@ -41,14 +41,17 @@ public class EagerLazyDemo {
 			System.out.println("Instructor: " + tempInstructor.toString());
 			
 			//get the courses for the instructor
-			
+			//option 1 call the getter method while session is open
+			System.out.println("Courses: "+tempInstructor.getCourses());
 		
 			
 			//commit  the transaction
 			session.getTransaction().commit();
 			
 			session.close();
-			System.out.println("Courses: "+tempInstructor.getCourses());
+			
+			System.out.println("\n The session is now closed \n");
+		
 			
 			
 			System.out.println("Luv 2 Code Done!");
