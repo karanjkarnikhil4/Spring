@@ -6,13 +6,14 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class EagerLazyDemo {
+public class FetchJoinDemo {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -36,13 +37,13 @@ public class EagerLazyDemo {
 			//get the instructor from the db
 			int theId =1;
 			
-			Instructor tempInstructor =session.get(Instructor.class,theId);
+	       Query<Instructor> query=session.createQuery("select i from Instructor i" ,Instructor.class);
 			
 			System.out.println("Instructor: " + tempInstructor.toString());
 			
 			//get the courses for the instructor
-			//option 1 call the getter method while session is open
-			System.out.println("Courses: "+tempInstructor.getCourses());
+			//option 2 Hibernate Query with HQL
+			
 		
 			
 			//commit  the transaction
