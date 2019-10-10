@@ -6,14 +6,13 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class FetchJoinDemo {
+public class GetInstructorCoursesDemo {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -36,36 +35,20 @@ public class FetchJoinDemo {
 			
 			//get the instructor from the db
 			int theId =1;
-			      
 			
-			//option 2 Hibernate Query with HQL
-			Query<Instructor> query=session.createQuery("select i from Instructor i JOIN FETCH i.courses where i.id=:theInstructorId" ,Instructor.class);
+			Instructor tempInstructor =session.get(Instructor.class,theId);
 			
+			System.out.println("Instructor: " + tempInstructor.toString());
 			
-			query.setParameter("theInstructorId", theId);
+			//get the courses for the instructor
 			
-			Instructor tempInstructor = query.getSingleResult();
-			
-			
-		
+			System.out.println("Courses: "+tempInstructor.getCourses());
 			
 			//commit  the transaction
 			session.getTransaction().commit();
 			
-			session.close();
 			
-			
-			
-			
-			System.out.println("\n The session is now closed \n");	
-			
-			System.out.println("Luv 2 Code Done!");
-			System.out.println(tempInstructor);
-			
-			for (Course course : tempInstructor.getCourses()) {
-				
-				System.out.println(course);
-			}
+			System.out.println("Done!");
 		}
 		
 		finally {

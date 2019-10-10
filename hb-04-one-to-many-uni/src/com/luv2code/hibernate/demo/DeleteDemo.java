@@ -6,14 +6,12 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
-import com.luv2code.hibernate.demo.entity.Course;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class FetchJoinDemo {
+public class DeleteDemo {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -22,7 +20,6 @@ public class FetchJoinDemo {
 				configure("hibernate.cfg.xml").
 				addAnnotatedClass(Instructor.class)
 				.addAnnotatedClass(InstructorDetail.class)
-				.addAnnotatedClass(Course.class)
 				.buildSessionFactory();
 		 
 		//create session
@@ -31,46 +28,31 @@ public class FetchJoinDemo {
 		try
 		{
 			
-			//start the transaction
+			
+			//start the transaction 
 			session.beginTransaction();
 			
-			//get the instructor from the db
 			int theId =1;
-			      
 			
-			//option 2 Hibernate Query with HQL
-			Query<Instructor> query=session.createQuery("select i from Instructor i JOIN FETCH i.courses where i.id=:theInstructorId" ,Instructor.class);
+			Instructor instructor = session.get(Instructor.class,theId);
 			
-			
-			query.setParameter("theInstructorId", theId);
-			
-			Instructor tempInstructor = query.getSingleResult();
-			
-			
+			if(instructor != null)
+			{
+				System.out.println("Found Instructor: " +instructor);
+				//note that this will also delete Instructor detail as cascade type is all
+				session.delete(instructor);
+				
+			}
 		
 			
 			//commit  the transaction
 			session.getTransaction().commit();
 			
-			session.close();
 			
-			
-			
-			
-			System.out.println("\n The session is now closed \n");	
-			
-			System.out.println("Luv 2 Code Done!");
-			System.out.println(tempInstructor);
-			
-			for (Course course : tempInstructor.getCourses()) {
-				
-				System.out.println(course);
-			}
+			System.out.println("Done!");
 		}
 		
 		finally {
-			session.close();
-			factory.close();
 			
 		}
 		
