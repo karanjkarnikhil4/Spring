@@ -40,11 +40,9 @@ public class CreateCourseAndReviewsDemo {
 			int theId =10;
 			Course course =session.get(Course.class, theId);
 			//Get the reviews for the course
-			List<Review> reviews=course.getReviews();
-			//print out the course reviews
-			for (Review review : reviews) {
-				System.out.println(review.toString());
-			}
+			
+			//Delete the couse
+			session.delete(course);
 			
 			//commit  the transaction
 			session.getTransaction().commit();
