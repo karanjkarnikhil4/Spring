@@ -2,6 +2,7 @@ package com.luv2code.hibernate.demo;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,20 +36,15 @@ public class GetCourseAndReviewsDemo {
 			//start the transaction
 			session.beginTransaction();
 			
-			//create a course
-			Course course = new Course("Pacman- How to Score One Million Points");
-			
-			//add some reviews 
-			course.addReview(new Review("Great course.. loved it!"));
-			course.addReview(new Review("Cool course, job well done"));
-			course.addReview(new Review("What a dumb course, you are an idiot"));
-			
-			//save the course and leverage the cascade all
-			//saving the course and leverage the cascade all :)
-			System.out.println("saving the course");
-			System.out.println(course);
-			System.out.println(course.getReviews());
-			session.save(course);
+			// Get the course
+			int theId =10;
+			Course course =session.get(Course.class, theId);
+			//Get the reviews for the course
+			List<Review> reviews=course.getReviews();
+			//print out the course reviews
+			for (Review review : reviews) {
+				System.out.println(review.toString());
+			}
 			
 			//commit  the transaction
 			session.getTransaction().commit();

@@ -2,7 +2,6 @@ package com.luv2code.hibernate.demo;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +13,7 @@ import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Review;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class DeleteCourseAndReviewsDemo {
+public class CreateCourseAndStudentsDemo {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -25,6 +24,7 @@ public class DeleteCourseAndReviewsDemo {
 				.addAnnotatedClass(InstructorDetail.class)
 				.addAnnotatedClass(Course.class)
 				.addAnnotatedClass(Review.class)
+				.addAnnotatedClass(Student.class)
 				.buildSessionFactory();
 		 
 		//create session
@@ -36,13 +36,30 @@ public class DeleteCourseAndReviewsDemo {
 			//start the transaction
 			session.beginTransaction();
 			
-			// Get the course
-			int theId =10;
-			Course course =session.get(Course.class, theId);
-			//Get the reviews for the course
+			//create a course
+			Course course = new Course("Pacman- How to Score One Million Points");
+		   
+			//save the course
+			System.out.println("\nSaving the course");
+			session.save(course);
+			System.out.println("\nSaved the course" + course);
 			
-			//Delete the couse
-			session.delete(course);
+			//create the students
+			Student student1 = new Student("John","Doe","john@luv2code.com");
+			Student student2 = new Student("Mary","Public","mary@luv2code.com");
+			
+			
+			//add the students to the course
+			course.addStudent(student1);
+			course.addStudent(student2);
+			
+			//save the course and leverage the cascade all
+			//saving the course and leverage the cascade all :)
+			System.out.println("saving the course");
+			System.out.println(course);
+			System.out.println(course.getReviews());
+			session.save(student1);
+			session.save(student2);
 			
 			//commit  the transaction
 			session.getTransaction().commit();
