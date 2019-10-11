@@ -13,7 +13,7 @@ import com.luv2code.hibernate.demo.entity.InstructorDetail;
 import com.luv2code.hibernate.demo.entity.Review;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class CreateCourseForMaryDemo {
+public class GetCoursesForMaryDemo {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -36,23 +36,14 @@ public class CreateCourseForMaryDemo {
 			//start the transaction
 			session.beginTransaction();
 			
-			int theId =6;
+			int theId =5;
 			//get the student mary from the database
 			Student student =session.get(Student.class, theId);
 		
 			System.out.println("\n Loaded student: " + student );
 			System.out.println("Courses: "+student.getCourses());
 			
-			//add more courses for mary
-			Course tempCourse1 = new Course("Rubik's Cube -How to Speed Cube");
-			Course tempCourse2 = new Course("Atari 2600 - Game development");
-			
-			tempCourse1.addStudent(student);
-			tempCourse2.addStudent(student);
-
-			session.save(tempCourse1);
-			session.save(tempCourse2);
-			
+					
 			
 			//save the courses
 			//commit  the transaction
